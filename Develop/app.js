@@ -11,6 +11,154 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./lib/htmlRenderer");
 
 // Write code to use inquirer to gather information about the development team members,
+const selectEmployee = [
+  {
+    type: `list`,
+    name: `type`,
+    message: `Select an employee to add:`,
+    choices: [`Manager`, `Engineer`, `Intern`],
+  },
+];
+
+const addAnother = [
+  {
+    type: `confirm`,
+    name: `add`,
+    message: `Would you like to add another employee?`,
+  },
+];
+
+function ask() {
+  inquirer.prompt(selectEmployee).then((answers) => {
+    switch (answers.type) {
+      case `Manager`:
+        getManager();
+        break;
+      case `Engineer`:
+        getEngineer();
+        break;
+      default:
+        getIntern();
+    }
+  });
+}
+
+function askToAdd() {
+  inquirer.prompt(addAnother).then((answers) => {
+    if (answers.add) {
+      ask();
+    } else {
+      /**go to next step*/
+    }
+  });
+}
+function getManager() {
+  inquirer
+    .prompt([
+      {
+        type: `text`,
+        name: "name",
+        message: `Enter First Name`,
+      },
+      {
+        type: `text`,
+        name: `id`,
+        message: `Enter ID number`,
+      },
+      {
+        type: `text`,
+        name: `email`,
+        message: `Enter an email`,
+      },
+      {
+        type: `text`,
+        name: `officeNumber`,
+        message: `Enter an office number`,
+      },
+    ])
+    .then((answers) => {
+      const newManager = new Manager(
+        answers.name,
+        answers.id,
+        answers.email,
+        answers.officeNumber
+      );
+      render(newManager);
+      askToAdd();
+    });
+}
+function getEngineer() {
+  inquirer
+    .prompt([
+      {
+        type: `text`,
+        name: "name",
+        message: `Enter First Name`,
+      },
+      {
+        type: `text`,
+        name: `id`,
+        message: `Enter ID number`,
+      },
+      {
+        type: `text`,
+        name: `email`,
+        message: `Enter an email`,
+      },
+      {
+        type: `text`,
+        name: `gitHub`,
+        message: `Enter an office number`,
+      },
+    ])
+    .then((answers) => {
+      const newEngineer = new Engineer(
+        answers.name,
+        answers.id,
+        answers.email,
+        answers.gitHub
+      );
+      render(newEngineer);
+      askToAdd();
+    });
+}
+function getIntern() {
+  inquirer
+    .prompt([
+      {
+        type: `text`,
+        name: "name",
+        message: `Enter First Name`,
+      },
+      {
+        type: `text`,
+        name: `id`,
+        message: `Enter ID number`,
+      },
+      {
+        type: `text`,
+        name: `email`,
+        message: `Enter an email`,
+      },
+      {
+        type: `text`,
+        name: `school`,
+        message: `Enter name of school`,
+      },
+    ])
+    .then((answers) => {
+      const newInter = new Intern(
+        answers.name,
+        answers.id,
+        answers.email,
+        answers.school
+      );
+      render(newInter);
+      askToAdd();
+    });
+}
+
+ask();
 // and to create objects for each team member (using the correct classes as blueprints!)
 
 // After the user has input all employees desired, call the `render` function (required
