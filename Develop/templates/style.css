@@ -1,0 +1,29 @@
+.team-heading {
+  background: #3d405b;
+  color: #f4f1de;
+}
+
+.team-area {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.employee-card {
+  margin: 0.75em;
+  flex: 1 1 150px;
+  box-shadow: 2px 2px 2px #8e9aaf;
+}
+
+.card-header {
+  background-color: #81b29a;
+}
+
+.card-body {
+  background-color: #e5e5e5;
+}
+
+.list-group-item {
+  margin-bottom: 0.5em;
+  border-radius: 5px;
+}
